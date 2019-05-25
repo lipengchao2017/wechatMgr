@@ -11,7 +11,7 @@
  Target Server Version : 50560
  File Encoding         : 65001
 
- Date: 25/05/2019 22:45:14
+ Date: 26/05/2019 00:17:31
 */
 
 SET NAMES utf8mb4;
@@ -39,9 +39,9 @@ CREATE TABLE `WECHAT_BASE_T_GROUP` (
 -- ----------------------------
 DROP TABLE IF EXISTS `WECHAT_BASE_T_ROLE`;
 CREATE TABLE `WECHAT_BASE_T_ROLE` (
-  `ID` varchar(255) CHARACTER SET latin1 NOT NULL COMMENT 'uuid主键',
-  `ROLECODE` varchar(100) CHARACTER SET latin1 DEFAULT NULL COMMENT '角色编号',
-  `ROLENAME` varchar(100) CHARACTER SET latin1 DEFAULT NULL COMMENT '角色名称',
+  `ID` varchar(255) NOT NULL COMMENT 'uuid主键',
+  `ROLECODE` varchar(100) DEFAULT NULL COMMENT '角色编号',
+  `ROLENAME` varchar(100) DEFAULT NULL COMMENT '角色名称',
   `CREATOR` varchar(100) DEFAULT NULL COMMENT '创建者',
   `CREATORID` varchar(100) DEFAULT NULL COMMENT '创建者编号',
   `UPDATOR` varchar(100) DEFAULT NULL COMMENT '修改者',
