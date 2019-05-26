@@ -1,4 +1,4 @@
-package com.wechat.mgr.controller;
+package com.wechat.mgr.login.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +14,10 @@ import java.util.List;
 @RequestMapping("/login")
 public class LoginController {
 
+    /**
+     * 登录方法
+     * @return
+     */
     @RequestMapping("/login")
     public ModelAndView login(){
         ModelAndView mav = new ModelAndView("login/login");
@@ -22,6 +26,18 @@ public class LoginController {
         userList.add("user1");
         userList.add("user2");
         mav.addObject("userList",userList);
+        return mav;
+    }
+
+    /**
+     * 主页
+     * @return
+     */
+    @RequestMapping("/main")
+    public ModelAndView main(){
+        //不做验证直接跳转
+        ModelAndView mav = new ModelAndView("main/main");
+
         return mav;
     }
 
