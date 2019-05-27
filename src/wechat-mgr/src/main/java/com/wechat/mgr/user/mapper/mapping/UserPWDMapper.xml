@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wechat.mgr.user.mapper.UserPWDMapper">
+  <resultMap id="BaseResultMap" type="com.wechat.mgr.user.model.UserPWD">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USERCODE" jdbcType="VARCHAR" property="usercode" />
+    <result column="USERPWD" jdbcType="VARCHAR" property="userpwd" />
+    <result column="ISINITPWD" jdbcType="INTEGER" property="isinitpwd" />
+    <result column="ISEFFECTIVE" jdbcType="INTEGER" property="iseffective" />
+    <result column="LOCKTYPE" jdbcType="INTEGER" property="locktype" />
+    <result column="ERRORCOUNT" jdbcType="INTEGER" property="errorcount" />
+    <result column="LOCKTIME" jdbcType="TIMESTAMP" property="locktime" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATORID" jdbcType="VARCHAR" property="creatorid" />
+    <result column="UPDATOR" jdbcType="VARCHAR" property="updator" />
+    <result column="UPDATORID" jdbcType="VARCHAR" property="updatorid" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USERCODE, USERPWD, ISINITPWD, ISEFFECTIVE, LOCKTYPE, ERRORCOUNT, LOCKTIME, CREATOR, 
+    CREATORID, UPDATOR, UPDATORID, CREATETIME, UPDATETIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WECHAT_BASE_T_USERPWD
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WECHAT_BASE_T_USERPWD
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wechat.mgr.user.model.UserPWD">
+    insert into WECHAT_BASE_T_USERPWD (ID, USERCODE, USERPWD, 
+      ISINITPWD, ISEFFECTIVE, LOCKTYPE, 
+      ERRORCOUNT, LOCKTIME, CREATOR, 
+      CREATORID, UPDATOR, UPDATORID, 
+      CREATETIME, UPDATETIME)
+    values (#{id,jdbcType=VARCHAR}, #{usercode,jdbcType=VARCHAR}, #{userpwd,jdbcType=VARCHAR}, 
+      #{isinitpwd,jdbcType=INTEGER}, #{iseffective,jdbcType=INTEGER}, #{locktype,jdbcType=INTEGER}, 
+      #{errorcount,jdbcType=INTEGER}, #{locktime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{creatorid,jdbcType=VARCHAR}, #{updator,jdbcType=VARCHAR}, #{updatorid,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wechat.mgr.user.model.UserPWD">
+    insert into WECHAT_BASE_T_USERPWD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="usercode != null">
+        USERCODE,
+      </if>
+      <if test="userpwd != null">
+        USERPWD,
+      </if>
+      <if test="isinitpwd != null">
+        ISINITPWD,
+      </if>
+      <if test="iseffective != null">
+        ISEFFECTIVE,
+      </if>
+      <if test="locktype != null">
+        LOCKTYPE,
+      </if>
+      <if test="errorcount != null">
+        ERRORCOUNT,
+      </if>
+      <if test="locktime != null">
+        LOCKTIME,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="creatorid != null">
+        CREATORID,
+      </if>
+      <if test="updator != null">
+        UPDATOR,
+      </if>
+      <if test="updatorid != null">
+        UPDATORID,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="usercode != null">
+        #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="userpwd != null">
+        #{userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="isinitpwd != null">
+        #{isinitpwd,jdbcType=INTEGER},
+      </if>
+      <if test="iseffective != null">
+        #{iseffective,jdbcType=INTEGER},
+      </if>
+      <if test="locktype != null">
+        #{locktype,jdbcType=INTEGER},
+      </if>
+      <if test="errorcount != null">
+        #{errorcount,jdbcType=INTEGER},
+      </if>
+      <if test="locktime != null">
+        #{locktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorid != null">
+        #{creatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updatorid != null">
+        #{updatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wechat.mgr.user.model.UserPWD">
+    update WECHAT_BASE_T_USERPWD
+    <set>
+      <if test="usercode != null">
+        USERCODE = #{usercode,jdbcType=VARCHAR},
+      </if>
+      <if test="userpwd != null">
+        USERPWD = #{userpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="isinitpwd != null">
+        ISINITPWD = #{isinitpwd,jdbcType=INTEGER},
+      </if>
+      <if test="iseffective != null">
+        ISEFFECTIVE = #{iseffective,jdbcType=INTEGER},
+      </if>
+      <if test="locktype != null">
+        LOCKTYPE = #{locktype,jdbcType=INTEGER},
+      </if>
+      <if test="errorcount != null">
+        ERRORCOUNT = #{errorcount,jdbcType=INTEGER},
+      </if>
+      <if test="locktime != null">
+        LOCKTIME = #{locktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorid != null">
+        CREATORID = #{creatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="updator != null">
+        UPDATOR = #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updatorid != null">
+        UPDATORID = #{updatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wechat.mgr.user.model.UserPWD">
+    update WECHAT_BASE_T_USERPWD
+    set USERCODE = #{usercode,jdbcType=VARCHAR},
+      USERPWD = #{userpwd,jdbcType=VARCHAR},
+      ISINITPWD = #{isinitpwd,jdbcType=INTEGER},
+      ISEFFECTIVE = #{iseffective,jdbcType=INTEGER},
+      LOCKTYPE = #{locktype,jdbcType=INTEGER},
+      ERRORCOUNT = #{errorcount,jdbcType=INTEGER},
+      LOCKTIME = #{locktime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATORID = #{creatorid,jdbcType=VARCHAR},
+      UPDATOR = #{updator,jdbcType=VARCHAR},
+      UPDATORID = #{updatorid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

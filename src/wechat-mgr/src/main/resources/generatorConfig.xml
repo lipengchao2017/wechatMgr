@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="/Users/lipengchaomac/Downloads/mysql-connector-java-5.1.47.jar" />
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.106/wechatmgr?useUnicode=true&amp;characterEncoding=utf-8" userId="wechatMgr" password="wechatMgr">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 实体，targetProject：物理全路径 -->
+        <javaModelGenerator targetPackage="com.wechat.mgr.user.model" targetProject="/Users/lipengchaomac/Projects/ownProjects/wechatMgr/src/wechat-mgr/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- xml文件 -->
+        <sqlMapGenerator targetPackage="com.wechat.mgr.user.mapper.mapping" targetProject="/Users/lipengchaomac/Projects/ownProjects/wechatMgr/src/wechat-mgr/src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- mapper类 -->
+        <!-- 想要生成annotation形式的mapper，XMLMAPPER 替换成 ANNOTATEDMAPPER -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.wechat.mgr.user.mapper" targetProject="/Users/lipengchaomac/Projects/ownProjects/wechatMgr/src/wechat-mgr/src/main/java" >
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--<table tableName="userBaseInfo" domainObjectName="UserBaseInfo" modelType="flat" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">
+            &lt;!&ndash; 使用表中字段名作为实体属性名；若为false则表中字段带下划线，对应实体属性为驼峰命名 &ndash;&gt;
+            <property name="useActualColumnNames" value="true"/>
+        </table>-->
+        <table tableName="WECHAT_BASE_T_USER" domainObjectName="User" modelType="flat" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="WECHAT_BASE_T_USERPWD" domainObjectName="UserPWD" modelType="flat" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+    </context>
+</generatorConfiguration>
