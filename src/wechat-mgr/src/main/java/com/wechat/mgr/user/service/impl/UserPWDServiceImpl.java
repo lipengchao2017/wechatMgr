@@ -42,4 +42,9 @@ public class UserPWDServiceImpl implements UserPWDService {
     public int updateByPrimaryKey(UserPWD record) {
         return userPWDMapper.updateByPrimaryKey(record);
     }
+
+    @Override
+    public String selectPwdByUserCode(String usercode) {
+        return userPWDMapper.selectPwdByUserCode(usercode);
+    }
 }

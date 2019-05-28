@@ -21,6 +21,12 @@
     ID, USERCODE, USERPWD, ISINITPWD, ISEFFECTIVE, LOCKTYPE, ERRORCOUNT, LOCKTIME, CREATOR, 
     CREATORID, UPDATOR, UPDATORID, CREATETIME, UPDATETIME
   </sql>
+
+  <!-- 通过usercode获取现有数据库中存在的数据-->
+  <select id="selectPwdByUserCode" parameterType="String" resultType="String">
+    SELECT p.USERPWD FROM WECHAT_BASE_T_USERPWD p WHERE p.USERCODE = #{usercode,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
