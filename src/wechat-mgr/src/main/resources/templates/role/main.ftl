@@ -11,7 +11,7 @@
     </style>
 </head>
 <body>
-<table class="layui-hide" id="role" lay-filter="test"></table>
+<table class="layui-hide" id="role" lay-filter="role"></table>
 
 <script type="text/html" id="roleBar">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -21,35 +21,37 @@
 
 <script src="/layui/layui.js"></script>
 <script>
-    layui.use(['laydate', 'laypage', 'layer', 'table'], function(){
+    layui.use(['laydate', 'laypage', 'layer', 'table','element'], function(){
         var laydate = layui.laydate //日期
             ,laypage = layui.laypage //分页
             ,layer = layui.layer //弹层
             ,table = layui.table //表格
+            ,element = layui.element;
 
         //执行一个 table 实例
         table.render({
             elem: '#role'
-            ,height: '100%'
-            ,url: '' //数据接口
+            ,height: 'full-200'
+            ,url: './show' //数据接口
             ,title: '角色表'
             ,page: true //开启分页
             ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            ,cellMinWidth: 80
             ,cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
-                ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field: 'rolecode', title: '角色编号', width:200}
-                ,{field: 'rolename', title: '角色名称', width: 200, sort: true}
-                ,{field: 'creator', title: '创建人', width: 150}
-                ,{field: 'createtime', title: '创建时间', width: 100}
-                ,{field: 'updator', title: '修改者', width: 150}
+                ,{field: 'id', title: 'ID', sort: true, fixed: 'left'}
+                ,{field: 'rolecode', title: '角色编号', }
+                ,{field: 'rolename', title: '角色名称', sort: true}
+                ,{field: 'creator', title: '创建人'}
+                ,{field: 'createtime', title: '创建时间'}
+                ,{field: 'updator', title: '修改者'}
                 ,{field: 'updatetime', title: '修改时间'}
-                ,{fixed: 'right', width: 165, align:'center', toolbar: '#roleBar'}
+                ,{fixed: 'right', align:'center', width: 150 , toolbar: '#roleBar'}
             ]]
         });
 
         //监听头工具栏事件
-        table.on('toolbar(test)', function(obj){
+        table.on('toolbar(role)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id)
                 ,data = checkStatus.data; //获取选中的数据
             switch(obj.event){
@@ -76,7 +78,7 @@
         });
 
         //监听行工具事件
-        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+        table.on('tool(role)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'detail'){
@@ -91,7 +93,6 @@
                 layer.msg('编辑操作');
             }
         });
-
     });
 </script>
 </body>

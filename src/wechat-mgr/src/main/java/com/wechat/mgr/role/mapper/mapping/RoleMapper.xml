@@ -15,6 +15,14 @@
   <sql id="Base_Column_List">
     ID, ROLECODE, ROLENAME, CREATOR, CREATORID, UPDATOR, UPDATORID, CREATETIME, UPDATETIME
   </sql>
+
+  <!-- 无条件分页查询-->
+  <select id="selectAllWithPage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT ID,ROLECODE,ROLENAME,CREATOR,UPDATOR,CREATETIME,UPDATETIME
+        FROM WECHAT_BASE_T_ROLE
+        LIMIT #{pstart},#{psize}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

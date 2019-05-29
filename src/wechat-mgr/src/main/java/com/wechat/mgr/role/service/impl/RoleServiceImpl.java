@@ -7,6 +7,10 @@ import com.wechat.mgr.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service("roleService")
 public class RoleServiceImpl implements RoleService {
 
@@ -41,5 +45,14 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int updateByPrimaryKey(Role record) {
         return roleMapper.updateByPrimaryKey(record);
+    }
+
+
+    @Override
+    public List<Role> selectAllWithPage(int start, int size) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("pstart",start);
+        map.put("psize",size);
+        return roleMapper.selectAllWithPage(map);
     }
 }
