@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>角色维护</title>
-    <link rel="stylesheet" href="/css/layui/layui.css">
+    <link rel="stylesheet" href="/layui/css/layui.css">
     <style>
         body{margin: 10px;}
         .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
@@ -19,7 +19,7 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-<script src="/js/layui/layui.js"></script>
+<script src="/layui/layui.js"></script>
 <script>
     layui.use(['laydate', 'laypage', 'layer', 'table'], function(){
         var laydate = layui.laydate //日期
@@ -30,7 +30,7 @@
         //执行一个 table 实例
         table.render({
             elem: '#role'
-            ,height: 420
+            ,height: '100%'
             ,url: '' //数据接口
             ,title: '角色表'
             ,page: true //开启分页
@@ -38,12 +38,12 @@
             ,cols: [[ //表头
                 {type: 'checkbox', fixed: 'left'}
                 ,{field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field: 'rolecode', title: '角色编号', width:140}
-                ,{field: 'rolename', title: '角色名称', width: 140, sort: true}
-                ,{field: 'creator', title: '创建人', width: 100}
+                ,{field: 'rolecode', title: '角色编号', width:200}
+                ,{field: 'rolename', title: '角色名称', width: 200, sort: true}
+                ,{field: 'creator', title: '创建人', width: 150}
                 ,{field: 'createtime', title: '创建时间', width: 100}
-                ,{field: 'updator', title: '修改者', width: 100}
-                ,{field: 'updatetime', title: '修改时间', width: 100}
+                ,{field: 'updator', title: '修改者', width: 150}
+                ,{field: 'updatetime', title: '修改时间'}
                 ,{fixed: 'right', width: 165, align:'center', toolbar: '#roleBar'}
             ]]
         });

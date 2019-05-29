@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="/jars/jquery-3.2.1.min.js"></script>
-    <link rel="stylesheet" href="/css/layui/layui.css">
-    <script src="/js/layui/layui.js"></script>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/layui/layui.js"></script>
     <script type="text/javascript" src="/js/login.js"></script>
     <link rel="stylesheet" href="/css/login.css">
     <title>微信SAAS平台登录页</title>
