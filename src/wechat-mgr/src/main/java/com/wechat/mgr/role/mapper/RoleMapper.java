@@ -10,4 +10,8 @@ import java.util.Map;
 @Repository
 public interface RoleMapper extends BasicMapper<Role> {
     List<Role> selectAllWithPage(Map<String,Object> map);
+
+    int selectAllCount();
+
+    int deleteByRolecodes(List<String> sts);
 }

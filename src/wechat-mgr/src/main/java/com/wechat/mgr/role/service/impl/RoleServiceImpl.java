@@ -55,4 +55,14 @@ public class RoleServiceImpl implements RoleService {
         map.put("psize",size);
         return roleMapper.selectAllWithPage(map);
     }
+
+    @Override
+    public int selectAllCount() {
+        return roleMapper.selectAllCount();
+    }
+
+    @Override
+    public int deleteByRolecodes(List<String> sts) {
+        return roleMapper.deleteByRolecodes(sts);
+    }
 }

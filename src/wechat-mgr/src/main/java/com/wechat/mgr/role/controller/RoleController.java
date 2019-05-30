@@ -38,17 +38,28 @@ public class RoleController {
     @GetMapping(value = "/show")
     @ResponseBody
     private Map<String,Object> showDatas(@RequestParam("page") int page,@RequestParam("limit") int limit){
-        List<Role> roles = roleService.selectAllWithPage(page, limit);
+        int count = roleService.selectAllCount();
+        List<Role> roles = roleService.selectAllWithPage((page-1)*10, limit);
         Map<String,Object> returnMap = new HashMap<>();
         returnMap.put("code",0);
         returnMap.put("msg","");
-        returnMap.put("count",10);
+        returnMap.put("count",count);
         returnMap.put("data",roles);
         return returnMap;
     }
 
-
-
-
+    /**
+     * 角色删除
+     * @param ids
+     * @return
+     */
+    @PostMapping("/del")
+    @ResponseBody
+    private int delRoleData(@RequestParam("ids") String ids){
+        JSONArray array = JSONArray.parseArray(ids);
+        List<String> codeStrs = (List)array;
+        int i = roleService.deleteByRolecodes(codeStrs);
+        return i;
+    }
 
 }

@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>角色维护</title>
+    <script type="text/javascript" src="/jars/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="/layui/css/layui.css">
+
     <style>
         body{margin: 10px;}
         .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
@@ -31,7 +33,7 @@
         //执行一个 table 实例
         table.render({
             elem: '#role'
-            ,height: 'full-200'
+            /*,height: 'full-200'*/
             ,url: './show' //数据接口
             ,title: '角色表'
             ,page: true //开启分页
@@ -46,7 +48,7 @@
                 ,{field: 'createtime', title: '创建时间'}
                 ,{field: 'updator', title: '修改者'}
                 ,{field: 'updatetime', title: '修改时间'}
-                ,{fixed: 'right', align:'center', width: 150 , toolbar: '#roleBar'}
+                ,{fixed: 'right', align:'center', width: 165 , toolbar: '#roleBar'}
             ]]
         });
 
@@ -69,13 +71,46 @@
                     break;
                 case 'delete':
                     if(data.length === 0){
-                        layer.msg('请选择一行');
+                        layer.msg('请至少选择一行进行删除操作');
                     } else {
-                        layer.msg('删除');
+                        layer.confirm('真的删除所选中行么', function(index) {
+                            delRoleData(data);
+                        });
+
                     }
                     break;
             };
         });
+
+        function delRoleData(data){
+            var codes = [];
+            if(Array.isArray(data)){
+                for (var i =0;i<data.length;i++){
+                    codes.push(data[i].rolecode);
+                }
+            }else{
+                codes.push(data.rolecode);
+            }
+
+            $.ajax({
+                url:'./del',
+                type:"POST",
+                data:{"ids":JSON.stringify(codes)},
+                success:function (data) {
+                    layer.msg('成功删除了'+data+'条数据');
+                    tabReload();
+                }
+            })
+        }
+
+        function tabReload(){
+            table.reload('role', {
+                url: './show'
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        }
 
         //监听行工具事件
         table.on('tool(role)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
@@ -86,8 +121,8 @@
             } else if(layEvent === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     obj.del(); //删除对应行（tr）的DOM结构
+                    delRoleData(data);
                     layer.close(index);
-                    //向服务端发送删除指令
                 });
             } else if(layEvent === 'edit'){
                 layer.msg('编辑操作');

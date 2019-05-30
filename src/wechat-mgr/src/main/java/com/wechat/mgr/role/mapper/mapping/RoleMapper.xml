@@ -23,6 +23,17 @@
         LIMIT #{pstart},#{psize}
   </select>
 
+  <select id="selectAllCount" resultType="Integer">
+        SELECT COUNT(*) FROM WECHAT_BASE_T_ROLE
+  </select>
+
+  <delete id="deleteByRolecodes" parameterType="List">
+        DELETE FROM WECHAT_BASE_T_ROLE where rolecode in
+        <foreach collection="list" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+  </delete>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
