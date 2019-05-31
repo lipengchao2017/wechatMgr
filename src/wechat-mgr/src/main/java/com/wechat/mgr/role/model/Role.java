@@ -2,6 +2,8 @@ package com.wechat.mgr.role.model;
 
 import com.wechat.mgr.basic.model.BasicModel;
 
+import java.util.UUID;
+
 public class Role extends BasicModel {
     private String id;
 
@@ -32,5 +34,10 @@ public class Role extends BasicModel {
     public void setRolename(String rolename) {
         this.rolename = rolename == null ? null : rolename.trim();
     }
+
+    public String getUUID(){
+        return UUID.randomUUID().toString();
+    }
+
 
 }

@@ -43,7 +43,7 @@ public class LoginController {
         //与数据库做验证
         String pwd = userPWDService.selectPwdByUserCode(usercode);
         if(pwd==password||pwd.equals(password)){
-            //不做验证直接跳转
+
             ModelAndView mav = new ModelAndView("main/main");
             return mav;
         }else{

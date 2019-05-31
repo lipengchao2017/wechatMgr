@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class RoleController {
      * @return
      */
     @RequestMapping("/main")
-    private String toRoleMain(){
+    public String toRoleMain(){
         return "/role/main";
     }
 
@@ -37,7 +38,7 @@ public class RoleController {
      */
     @GetMapping(value = "/show")
     @ResponseBody
-    private Map<String,Object> showDatas(@RequestParam("page") int page,@RequestParam("limit") int limit){
+    public Map<String,Object> showDatas(@RequestParam("page") int page,@RequestParam("limit") int limit){
         int count = roleService.selectAllCount();
         List<Role> roles = roleService.selectAllWithPage((page-1)*10, limit);
         Map<String,Object> returnMap = new HashMap<>();
@@ -55,11 +56,44 @@ public class RoleController {
      */
     @PostMapping("/del")
     @ResponseBody
-    private int delRoleData(@RequestParam("ids") String ids){
+    public int delRoleData(@RequestParam("ids") String ids){
         JSONArray array = JSONArray.parseArray(ids);
         List<String> codeStrs = (List)array;
         int i = roleService.deleteByRolecodes(codeStrs);
         return i;
     }
 
+    /**
+     * 显示输入页面
+     * @return
+     */
+    @RequestMapping("/showInput")
+    public String showInput(){
+        return "/role/input";
+    }
+
+    /**
+     * 角色添加或编辑
+     * @return
+     */
+    @PostMapping("/save")
+    @ResponseBody
+    public String saveRole(Role role){
+        try {
+            if (role.getId() == null || "".equals(role.getId())) {
+                //添加
+                role.setId(role.getUUID());
+                role.setCreatetime(new Date());
+                roleService.insertSelective(role);
+                return "asuccess";
+            } else {
+                //编辑
+                role.setUpdatetime(new Date());
+                roleService.updateByPrimaryKeySelective(role);
+                return "usuccess";
+            }
+        }catch (Exception e){
+            return "fail";
+        }
+    }
 }

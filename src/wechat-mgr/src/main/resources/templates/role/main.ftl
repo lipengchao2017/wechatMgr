@@ -9,7 +9,6 @@
 
     <style>
         body{margin: 10px;}
-        .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
     </style>
 </head>
 <body>
@@ -58,7 +57,8 @@
                 ,data = checkStatus.data; //获取选中的数据
             switch(obj.event){
                 case 'add':
-                    layer.msg('添加');
+                    data = [];
+                    addOrUpdate(data);
                     break;
                 case 'update':
                     if(data.length === 0){
@@ -66,7 +66,7 @@
                     } else if(data.length > 1){
                         layer.msg('只能同时编辑一个');
                     } else {
-                        layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+                        addOrUpdate(data);
                     }
                     break;
                 case 'delete':
@@ -76,11 +76,59 @@
                         layer.confirm('真的删除所选中行么', function(index) {
                             delRoleData(data);
                         });
-
                     }
                     break;
             };
         });
+
+        function addOrUpdate(data){
+            var codes = [];
+            if(Array.isArray(data)){
+                for (var i =0;i<data.length;i++){
+                    codes.push(data[i]);
+                }
+            }else{
+                codes.push(data);
+            }
+
+            layer.open({
+                type: 2 //此处以iframe举例
+                ,title: '角色维护'
+                ,area: ['390px', '260px']
+                ,shade: 0
+                ,maxmin: true
+                ,offset: 'auto'
+                ,content: './showInput'
+                ,resize: false
+                ,btn: ['提交', '重置','关闭']
+                ,yes: function(index){
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#roleSubmit').click();
+                }
+                ,btn2: function(index){
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#roleReset').click();
+                    return false;
+                }
+                ,btn3: function(){
+                    layer.closeAll();
+                }
+                ,success: function(layero, index){
+                    if(codes.length > 0){
+                        var body = layer.getChildFrame('body', index);
+                        var roleData = codes[0];
+                        body.find('#rolecode').val(roleData.rolecode);
+                        body.find('#rolename').val(roleData.rolename);
+                        body.find('#id').val(roleData.id);
+                    }else{
+                        var body = layer.getChildFrame('body', index);
+                        body.find('#rolecode').val('');
+                        body.find('#rolename').val('');
+                        body.find('#id').val('');
+                    }
+                }
+            });
+        }
 
         function delRoleData(data){
             var codes = [];
@@ -125,7 +173,7 @@
                     layer.close(index);
                 });
             } else if(layEvent === 'edit'){
-                layer.msg('编辑操作');
+                addOrUpdate(data);
             }
         });
     });
