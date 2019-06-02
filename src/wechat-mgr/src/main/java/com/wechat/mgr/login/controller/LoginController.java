@@ -1,7 +1,9 @@
 package com.wechat.mgr.login.controller;
 
+import com.wechat.mgr.user.model.User;
 import com.wechat.mgr.user.service.UserPWDService;
 import com.wechat.mgr.user.service.UserService;
+import com.wechat.mgr.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +45,9 @@ public class LoginController {
         //与数据库做验证
         String pwd = userPWDService.selectPwdByUserCode(usercode);
         if(pwd==password||pwd.equals(password)){
-
+            User user = userService.selectByUsercode(usercode);
             ModelAndView mav = new ModelAndView("main/main");
+            SessionUtil.putUserIntoSession(user);
             return mav;
         }else{
             return null;

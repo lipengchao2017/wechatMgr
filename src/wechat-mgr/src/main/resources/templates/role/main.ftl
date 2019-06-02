@@ -124,6 +124,7 @@
                         var body = layer.getChildFrame('body', index);
                         body.find('#rolecode').val('');
                         body.find('#rolename').val('');
+
                         body.find('#id').val('');
                     }
                 }

@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper extends BasicMapper<User> {
 
+    User selectByUsercode(String usercode);
 }

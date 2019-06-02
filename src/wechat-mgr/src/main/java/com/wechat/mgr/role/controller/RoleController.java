@@ -3,9 +3,12 @@ package com.wechat.mgr.role.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.wechat.mgr.role.model.Role;
 import com.wechat.mgr.role.service.RoleService;
+import com.wechat.mgr.util.DateUtil;
+import com.wechat.mgr.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -28,8 +31,10 @@ public class RoleController {
      * @return
      */
     @RequestMapping("/main")
-    public String toRoleMain(){
-        return "/role/main";
+    public ModelAndView toRoleMain(){
+        ModelAndView mav = new ModelAndView("/role/main");
+        mav.addObject("loginUser", SessionUtil.getUserFromSession());
+        return mav;
     }
 
     /**
@@ -69,6 +74,8 @@ public class RoleController {
      */
     @RequestMapping("/showInput")
     public String showInput(){
+        ModelAndView mav = new ModelAndView("/role/input");
+
         return "/role/input";
     }
 
@@ -83,12 +90,16 @@ public class RoleController {
             if (role.getId() == null || "".equals(role.getId())) {
                 //添加
                 role.setId(role.getUUID());
-                role.setCreatetime(new Date());
+                role.setCreatetime(DateUtil.getDate());
+                role.setCreatorid(SessionUtil.getUserFromSession().getUsercode());
+                role.setCreator(SessionUtil.getUserFromSession().getUsername());
                 roleService.insertSelective(role);
                 return "asuccess";
             } else {
                 //编辑
-                role.setUpdatetime(new Date());
+                role.setUpdatetime(DateUtil.getDate());
+                role.setUpdatorid(SessionUtil.getUserFromSession().getUsercode());
+                role.setUpdator(SessionUtil.getUserFromSession().getUsername());
                 roleService.updateByPrimaryKeySelective(role);
                 return "usuccess";
             }

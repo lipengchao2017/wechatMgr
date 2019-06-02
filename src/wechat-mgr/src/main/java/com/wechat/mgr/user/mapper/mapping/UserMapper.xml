@@ -15,6 +15,14 @@
   <sql id="Base_Column_List">
     USERID, USERCODE, USERNAME, CREATOR, CREATORID, UPDATOR, UPDATORID, CREATETIME, UPDATETIME
   </sql>
+
+  <select id="selectByUsercode" parameterType="String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from WECHAT_BASE_T_USER
+    where usercode = #{usercode,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
