@@ -3,6 +3,7 @@ package com.wechat.mgr.login.controller;
 import com.wechat.mgr.user.model.User;
 import com.wechat.mgr.user.service.UserPWDService;
 import com.wechat.mgr.user.service.UserService;
+import com.wechat.mgr.util.MD5Util;
 import com.wechat.mgr.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,9 +43,9 @@ public class LoginController {
      */
     @RequestMapping("/main")
     public ModelAndView main(@RequestParam("usercode") String usercode,@RequestParam("password") String password){
-        //与数据库做验证
+        String md5PWD = MD5Util.getMD5(password);
         String pwd = userPWDService.selectPwdByUserCode(usercode);
-        if(pwd==password||pwd.equals(password)){
+        if(pwd==md5PWD||pwd.equals(md5PWD)){
             User user = userService.selectByUsercode(usercode);
             ModelAndView mav = new ModelAndView("main/main");
             SessionUtil.putUserIntoSession(user);
