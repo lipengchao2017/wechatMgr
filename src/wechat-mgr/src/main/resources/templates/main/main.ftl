@@ -49,14 +49,14 @@
                     <a class="" href="javascript:;">角色管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="#" data-url="../role/main" data-title="角色维护" data-id="11" class="site-demo-active" data-type="tabAdd">角色维护</a></dd>
-                        <dd><a href="#" data-url="b" data-title="角色与用户" data-id="22" class="site-demo-active" data-type="tabAdd">角色与用户</a></dd>
+                        <dd><a href="#" data-url="b" data-title="角色与用户" data-id="12" class="site-demo-active" data-type="tabAdd">角色与用户</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">用户与用户组管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">用户管理</a></dd>
-                        <dd><a href="javascript:;">用户组管理</a></dd>
+                        <dd><a href="#" data-url="../group/main" data-title="用户组维护" data-id="22" class="site-demo-active" data-type="tabAdd">用户组管理</a></dd>
                         <dd><a href="">用户与用户组</a></dd>
                     </dl>
                 </li>

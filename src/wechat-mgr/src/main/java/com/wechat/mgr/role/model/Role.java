@@ -35,9 +35,7 @@ public class Role extends BasicModel {
         this.rolename = rolename == null ? null : rolename.trim();
     }
 
-    public String getUUID(){
-        return UUID.randomUUID().toString();
-    }
+
 
 
 }

@@ -2,6 +2,7 @@ package com.wechat.mgr.basic.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Basic父类
@@ -66,5 +67,9 @@ public class BasicModel implements Serializable {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public String getUUID(){
+        return UUID.randomUUID().toString();
     }
 }

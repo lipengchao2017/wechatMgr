@@ -1,8 +1,9 @@
-package com.wechat.mgr.role.controller;
+package com.wechat.mgr.group.controller;
 
 import com.alibaba.fastjson.JSONArray;
+import com.wechat.mgr.group.model.Group;
+import com.wechat.mgr.group.service.GroupService;
 import com.wechat.mgr.role.model.Role;
-import com.wechat.mgr.role.service.RoleService;
 import com.wechat.mgr.util.DateUtil;
 import com.wechat.mgr.util.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,29 +11,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- *
- * 角色控制器
+ * 用户组
  */
 @Controller
-@RequestMapping("/role")
-public class RoleController {
+@RequestMapping("/group")
+public class GroupController {
 
     @Autowired
-    private RoleService roleService;
+    private GroupService groupService;
 
     /**
-     * 角色台账页面
+     * 用户组主页面
      * @return
      */
     @RequestMapping("/main")
-    public ModelAndView toRoleMain(){
-        ModelAndView mav = new ModelAndView("/role/main");
+    public ModelAndView toGroupMain(){
+        ModelAndView mav = new ModelAndView("/group/main");
         return mav;
     }
 
@@ -42,9 +41,9 @@ public class RoleController {
      */
     @GetMapping(value = "/show")
     @ResponseBody
-    public Map<String,Object> showDatas(@RequestParam("page") int page,@RequestParam("limit") int limit){
-        int count = roleService.selectAllCount();
-        List<Role> roles = roleService.selectAllWithPage((page-1)*10, limit);
+    public Map<String,Object> showDatas(@RequestParam("page") int page, @RequestParam("limit") int limit){
+        int count = groupService.selectAllCount();
+        List<Role> roles = groupService.selectAllWithPage((page-1)*10, limit);
         Map<String,Object> returnMap = new HashMap<>();
         returnMap.put("code",0);
         returnMap.put("msg","");
@@ -54,7 +53,7 @@ public class RoleController {
     }
 
     /**
-     * 角色删除
+     * 用户组删除
      * @param ids
      * @return
      */
@@ -63,7 +62,7 @@ public class RoleController {
     public int delRoleData(@RequestParam("ids") String ids){
         JSONArray array = JSONArray.parseArray(ids);
         List<String> codeStrs = (List)array;
-        int i = roleService.deleteByRolecodes(codeStrs);
+        int i = groupService.deleteByGroupcodes(codeStrs);
         return i;
     }
 
@@ -73,7 +72,7 @@ public class RoleController {
      */
     @RequestMapping("/showInput")
     public String showInput(){
-        return "/role/input";
+        return "/group/input";
     }
 
     /**
@@ -82,26 +81,27 @@ public class RoleController {
      */
     @PostMapping("/save")
     @ResponseBody
-    public String saveRole(Role role){
+    public String saveGroup(Group group){
         try {
-            if (role.getId() == null || "".equals(role.getId())) {
+            if (group.getGroupid() == null || "".equals(group.getGroupid())) {
                 //添加
-                role.setId(role.getUUID());
-                role.setCreatetime(DateUtil.getDate());
-                role.setCreatorid(SessionUtil.getUserFromSession().getUsercode());
-                role.setCreator(SessionUtil.getUserFromSession().getUsername());
-                roleService.insertSelective(role);
+                group.setGroupid(group.getUUID());
+                group.setCreatetime(DateUtil.getDate());
+                group.setCreatorid(SessionUtil.getUserFromSession().getUsercode());
+                group.setCreator(SessionUtil.getUserFromSession().getUsername());
+                groupService.insertSelective(group);
                 return "asuccess";
             } else {
                 //编辑
-                role.setUpdatetime(DateUtil.getDate());
-                role.setUpdatorid(SessionUtil.getUserFromSession().getUsercode());
-                role.setUpdator(SessionUtil.getUserFromSession().getUsername());
-                roleService.updateByPrimaryKeySelective(role);
+                group.setUpdatetime(DateUtil.getDate());
+                group.setUpdatorid(SessionUtil.getUserFromSession().getUsercode());
+                group.setUpdator(SessionUtil.getUserFromSession().getUsername());
+                groupService.updateByPrimaryKeySelective(group);
                 return "usuccess";
             }
         }catch (Exception e){
             return "fail";
         }
     }
+
 }

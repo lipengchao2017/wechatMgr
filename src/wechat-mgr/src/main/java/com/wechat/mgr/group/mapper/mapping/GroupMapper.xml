@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wechat.mgr.group.mapper.GroupMapper">
+  <resultMap id="BaseResultMap" type="com.wechat.mgr.group.model.Group">
+    <id column="GROUPID" jdbcType="VARCHAR" property="groupid" />
+    <result column="GROUPCODE" jdbcType="VARCHAR" property="groupcode" />
+    <result column="GROUPNAME" jdbcType="VARCHAR" property="groupname" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CREATORID" jdbcType="VARCHAR" property="creatorid" />
+    <result column="UPDATOR" jdbcType="VARCHAR" property="updator" />
+    <result column="UPDATORID" jdbcType="VARCHAR" property="updatorid" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UPDATETIME" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    GROUPID, GROUPCODE, GROUPNAME, CREATOR, CREATORID, UPDATOR, UPDATORID, CREATETIME, 
+    UPDATETIME
+  </sql>
+
+  <!-- 无条件分页查询-->
+  <select id="selectAllWithPage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT GROUPID,GROUPCODE,GROUPNAME,CREATOR,UPDATOR,CREATETIME,UPDATETIME
+        FROM WECHAT_BASE_T_GROUP
+        LIMIT #{pstart},#{psize}
+  </select>
+
+  <select id="selectAllCount" resultType="Integer">
+        SELECT COUNT(*) FROM WECHAT_BASE_T_GROUP
+  </select>
+
+  <delete id="deleteByGroupcodes" parameterType="List">
+    DELETE FROM WECHAT_BASE_T_GROUP where groupcode in
+    <foreach collection="list" open="(" separator="," close=")" item="id">
+      #{id}
+    </foreach>
+  </delete>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from WECHAT_BASE_T_GROUP
+    where GROUPID = #{groupid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from WECHAT_BASE_T_GROUP
+    where GROUPID = #{groupid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.wechat.mgr.group.model.Group">
+    insert into WECHAT_BASE_T_GROUP (GROUPID, GROUPCODE, GROUPNAME, 
+      CREATOR, CREATORID, UPDATOR, 
+      UPDATORID, CREATETIME, UPDATETIME
+      )
+    values (#{groupid,jdbcType=VARCHAR}, #{groupcode,jdbcType=VARCHAR}, #{groupname,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=VARCHAR}, #{creatorid,jdbcType=VARCHAR}, #{updator,jdbcType=VARCHAR}, 
+      #{updatorid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wechat.mgr.group.model.Group">
+    insert into WECHAT_BASE_T_GROUP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="groupid != null">
+        GROUPID,
+      </if>
+      <if test="groupcode != null">
+        GROUPCODE,
+      </if>
+      <if test="groupname != null">
+        GROUPNAME,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="creatorid != null">
+        CREATORID,
+      </if>
+      <if test="updator != null">
+        UPDATOR,
+      </if>
+      <if test="updatorid != null">
+        UPDATORID,
+      </if>
+      <if test="createtime != null">
+        CREATETIME,
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="groupid != null">
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="groupcode != null">
+        #{groupcode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupname != null">
+        #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorid != null">
+        #{creatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updatorid != null">
+        #{updatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wechat.mgr.group.model.Group">
+    update WECHAT_BASE_T_GROUP
+    <set>
+      <if test="groupcode != null">
+        GROUPCODE = #{groupcode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupname != null">
+        GROUPNAME = #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorid != null">
+        CREATORID = #{creatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="updator != null">
+        UPDATOR = #{updator,jdbcType=VARCHAR},
+      </if>
+      <if test="updatorid != null">
+        UPDATORID = #{updatorid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where GROUPID = #{groupid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wechat.mgr.group.model.Group">
+    update WECHAT_BASE_T_GROUP
+    set GROUPCODE = #{groupcode,jdbcType=VARCHAR},
+      GROUPNAME = #{groupname,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATORID = #{creatorid,jdbcType=VARCHAR},
+      UPDATOR = #{updator,jdbcType=VARCHAR},
+      UPDATORID = #{updatorid,jdbcType=VARCHAR},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      UPDATETIME = #{updatetime,jdbcType=TIMESTAMP}
+    where GROUPID = #{groupid,jdbcType=VARCHAR}
+  </update>
+</mapper>

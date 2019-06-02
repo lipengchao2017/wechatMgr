@@ -12,7 +12,7 @@
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
 
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.106/wechatmgr?useUnicode=true&amp;characterEncoding=utf-8" userId="wechatMgr" password="wechatMgr">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.104/wechatmgr?useUnicode=true&amp;characterEncoding=utf-8" userId="wechatMgr" password="wechatMgr">
         </jdbcConnection>
 
         <javaTypeResolver >
@@ -20,19 +20,19 @@
         </javaTypeResolver>
 
         <!-- 实体，targetProject：物理全路径 -->
-        <javaModelGenerator targetPackage="com.wechat.mgr.role.model" targetProject="/Users/lipengchaomac/Projects/ownProjects/wechatMgr/src/wechat-mgr/src/main/java">
+        <javaModelGenerator targetPackage="com.wechat.mgr.group.model" targetProject="/Users/lipengchaomac/Projects/ownProjects/wechatMgr/src/wechat-mgr/src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!-- xml文件 -->
-        <sqlMapGenerator targetPackage="com.wechat.mgr.role.mapper.mapping" targetProject="/Users/lipengchaomac/Projects/ownProjects/wechatMgr/src/wechat-mgr/src/main/java">
+        <sqlMapGenerator targetPackage="com.wechat.mgr.group.mapper.mapping" targetProject="/Users/lipengchaomac/Projects/ownProjects/wechatMgr/src/wechat-mgr/src/main/java">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
         <!-- mapper类 -->
         <!-- 想要生成annotation形式的mapper，XMLMAPPER 替换成 ANNOTATEDMAPPER -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.wechat.mgr.role.mapper" targetProject="/Users/lipengchaomac/Projects/ownProjects/wechatMgr/src/wechat-mgr/src/main/java" >
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.wechat.mgr.group.mapper" targetProject="/Users/lipengchaomac/Projects/ownProjects/wechatMgr/src/wechat-mgr/src/main/java" >
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
@@ -40,7 +40,7 @@
             &lt;!&ndash; 使用表中字段名作为实体属性名；若为false则表中字段带下划线，对应实体属性为驼峰命名 &ndash;&gt;
             <property name="useActualColumnNames" value="true"/>
         </table>-->
-        <table tableName="WECHAT_BASE_T_ROLE" domainObjectName="Role" modelType="flat" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">
+        <table tableName="WECHAT_BASE_T_GROUP" domainObjectName="Group" modelType="flat" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false">
             <property name="useActualColumnNames" value="false"/>
         </table>
     </context>
