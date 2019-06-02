@@ -30,7 +30,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    ${Session["user"].username}
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
@@ -55,7 +55,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">用户与用户组管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">用户管理</a></dd>
+                        <dd><a href="#" data-url="../user/main" data-title="用户维护" data-id="21" class="site-demo-active" data-type="tabAdd">用户管理</a></dd>
                         <dd><a href="#" data-url="../group/main" data-title="用户组维护" data-id="22" class="site-demo-active" data-type="tabAdd">用户组管理</a></dd>
                         <dd><a href="">用户与用户组</a></dd>
                     </dl>

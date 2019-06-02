@@ -16,6 +16,24 @@
     USERID, USERCODE, USERNAME, CREATOR, CREATORID, UPDATOR, UPDATORID, CREATETIME, UPDATETIME
   </sql>
 
+  <!-- 无条件分页查询-->
+  <select id="selectAllWithPage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT USERID,USERCODE,USERNAME,CREATOR,UPDATOR,CREATETIME,UPDATETIME
+        FROM WECHAT_BASE_T_USER
+        LIMIT #{pstart},#{psize}
+  </select>
+
+  <select id="selectAllCount" resultType="Integer">
+        SELECT COUNT(*) FROM WECHAT_BASE_T_USER
+  </select>
+
+  <delete id="deleteByRolecodes" parameterType="List">
+    DELETE FROM WECHAT_BASE_T_USER where usercode in
+    <foreach collection="list" open="(" separator="," close=")" item="id">
+      #{id}
+    </foreach>
+  </delete>
+
   <select id="selectByUsercode" parameterType="String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

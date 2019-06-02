@@ -76,7 +76,7 @@ public class GroupController {
     }
 
     /**
-     * 角色添加或编辑
+     * 用户组添加或编辑
      * @return
      */
     @PostMapping("/save")

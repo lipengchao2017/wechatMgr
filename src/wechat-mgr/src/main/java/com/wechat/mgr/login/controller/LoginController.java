@@ -48,6 +48,7 @@ public class LoginController {
             User user = userService.selectByUsercode(usercode);
             ModelAndView mav = new ModelAndView("main/main");
             SessionUtil.putUserIntoSession(user);
+            mav.addObject("loginUser",user);
             return mav;
         }else{
             return null;

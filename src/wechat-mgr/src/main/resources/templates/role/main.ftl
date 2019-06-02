@@ -94,6 +94,7 @@
             layer.open({
                 type: 2 //此处以iframe举例
                 ,title: '角色维护'
+                ,id : "add"
                 ,area: ['390px', '260px']
                 ,shade: 0
                 ,maxmin: true
