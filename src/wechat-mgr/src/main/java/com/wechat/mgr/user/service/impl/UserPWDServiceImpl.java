@@ -47,4 +47,9 @@ public class UserPWDServiceImpl implements UserPWDService {
     public String selectPwdByUserCode(String usercode) {
         return userPWDMapper.selectPwdByUserCode(usercode);
     }
+
+    @Override
+    public void updateEffByCode(String usercode) {
+        userPWDMapper.updateEffByCode(usercode);
+    }
 }

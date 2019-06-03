@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserPWDMapper extends BasicMapper<UserPWD> {
     String selectPwdByUserCode(String usercode);
+
+    void updateEffByCode(String usercode);
 }

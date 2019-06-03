@@ -17,21 +17,21 @@
     <div class="layui-form-item">
         <label class="layui-form-label">旧密码</label>
         <div class="layui-input-inline">
-            <input type="password" name="oldpassword" required lay-verify="required" placeholder="请输入旧密码" autocomplete="off" class="layui-input">
+            <input type="password" id="oldpassword" name="oldpassword" required lay-verify="required" placeholder="请输入旧密码" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux"></div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">新密码</label>
         <div class="layui-input-inline">
-            <input type="password" name="newpassword" required lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+            <input type="password" id="newpassword" name="newpassword" required lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux"></div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">确认新密码</label>
         <div class="layui-input-inline">
-            <input type="password" name="verifypassword" required lay-verify="required" placeholder="请确认新密码" autocomplete="off" class="layui-input">
+            <input type="password" id="verifypassword" name="verifypassword" required lay-verify="required" placeholder="请确认新密码" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux"></div>
     </div>
@@ -46,6 +46,43 @@
 </form>
 <script src="/layui/layui.js"></script>
 <script>
+
+    $(function(){
+        $("#oldpassword").blur(function(){
+            oldpwdverify();
+        })
+        $("#verifypassword").blur(function(){
+            newpwdcomp();
+        })
+    });
+
+    function oldpwdverify(){
+        var oldpassword = $("#oldpassword").val();
+        $.ajax({
+            //几个参数需要注意一下
+            type: "GET",//方法类型
+            dataType: "text",//预期服务器返回的数据类型
+            url: "./verifyold" ,//url
+            data: {"oldpassword":oldpassword},
+            success: function (data) {
+                if (data == "fail") {
+                    layer.msg("旧密码错误，请确认后修改");
+                    $("#oldpassword").val("");
+                }
+            }
+        });
+    }
+
+    function newpwdcomp(){
+        var npwd = $("#newpassword").val();
+        var vpwd = $("#verifypassword").val();
+
+        if(npwd!=vpwd){
+            layer.msg("新密码与确认密码不一致，请确认后重新输入");
+            $("#verifypassword").val("");
+        }
+    }
+
     layui.use(['layer','form'], function(){
         var form = layui.form;
 
@@ -54,18 +91,21 @@
                 //几个参数需要注意一下
                 type: "POST",//方法类型
                 dataType: "text",//预期服务器返回的数据类型
-                url: "./save" ,//url
+                url: "./updatepwd" ,//url
                 data: $('#saveForm').serialize(),
                 success: function (data) {
-                    if(data=="asuccess"){
-
+                    if(data=="diff"){
+                        layer.msg("新密码与确认密码不一致，请确认后重新输入");
+                        $("#verifypassword").val("");
                     }
-                    else if(data=="usuccess") {
-
+                    else if(data=="success") {
+                        layer.closeAll();
                     }
                     else{
-
                     }
+                },
+                error: function(data){
+                    alert("error");
                 }
             });
         });

@@ -101,6 +101,7 @@ public class UserController {
                 upwd.setUsercode(user.getUsercode());
                 upwd.setUserpwd(md5);
                 upwd.setIsinitpwd(1);
+                upwd.setIseffective(1);
                 upwd.setCreatetime(DateUtil.getDate());
                 upwd.setCreatorid(SessionUtil.getUserFromSession().getUsercode());
                 upwd.setCreator(SessionUtil.getUserFromSession().getUsername());
