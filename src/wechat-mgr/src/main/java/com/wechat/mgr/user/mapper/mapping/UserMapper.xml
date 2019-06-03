@@ -16,6 +16,11 @@
     USERID, USERCODE, USERNAME, CREATOR, CREATORID, UPDATOR, UPDATORID, CREATETIME, UPDATETIME
   </sql>
 
+  <select id="selectIsExistByCode" parameterType="String" resultType="Integer">
+        SELECT COUNT(USERCODE) FROM WECHAT_BASE_T_USER
+        WHERE USERCODE = #{usercode,jdbcType=VARCHAR}
+  </select>
+
   <!-- 无条件分页查询-->
   <select id="selectAllWithPage" parameterType="Map" resultMap="BaseResultMap">
         SELECT USERID,USERCODE,USERNAME,CREATOR,UPDATOR,CREATETIME,UPDATETIME

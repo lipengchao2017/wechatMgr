@@ -10,7 +10,7 @@
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
-    <div class="layui-header layui-bg-cyan">
+    <div class="layui-header layui-bg-cyan" id="layerhead">
         <div class="layui-logo">微信SAAS平台</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
@@ -34,7 +34,7 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
+                    <dd><a href="#" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">修改密码</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="../login/login">退出系统</a></li>
@@ -80,7 +80,7 @@
 </div>
 <script>
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use(['layer','element'], function(){
         var $=layui.jquery;
         var element = layui.element;
 
@@ -104,10 +104,15 @@
             tabDelete: function (id) {
                 element.tabDelete("demo", id);//删除
             }
-            , tabDeleteAll: function (ids) {//删除所有
+            ,
+            tabDeleteAll: function (ids) {//删除所有
                 $.each(ids, function (i,item) {
                     element.tabDelete("demo", item); //ids是一个数组，里面存放了多个id，调用tabDelete方法分别删除
                 })
+            },
+            offset: function(othis){
+                alert("111");
+                updatePWD();
             }
         }
 
@@ -184,6 +189,46 @@
         $(window).resize(function () {
             FrameWH();
         })
+
+        var activepwd = {
+            offset: function(othis){
+                updatePWD();
+            }
+        }
+
+        function updatePWD(){
+            layer.open({
+                type: 2 //此处以iframe举例
+                ,title: '修改密码'
+                ,id : "updatepwd"
+                ,area: ['500px', '280px']
+                ,shade: 0
+                ,offset: 'auto'
+                ,content: './toPwd'
+                ,resize: false
+                ,btn: ['提交', '重置','关闭']
+                ,yes: function(index){
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#pwdSubmit').click();
+                }
+                ,btn2: function(index){
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#pwdReset').click();
+                    return false;
+                }
+                ,btn3: function(){
+                    layer.closeAll();
+                }
+                ,success: function(layero, index){
+
+                }
+            });
+        }
+
+        $('#layerhead .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            activepwd[method] ? activepwd[method].call(this, othis) : '';
+        });
     });
 </script>
 </body>

@@ -65,4 +65,9 @@ public class GroupServiceImpl implements GroupService {
     public int deleteByGroupcodes(List<String> codeStrs) {
         return groupMapper.deleteByGroupcodes(codeStrs);
     }
+
+    @Override
+    public int selectIsExistByCode(String groupcode) {
+        return groupMapper.selectIsExistByCode(groupcode);
+    }
 }

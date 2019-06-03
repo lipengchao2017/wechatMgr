@@ -21,4 +21,6 @@ public interface UserMapper extends BasicMapper<User> {
     List<Role> selectAllWithPage(Map<String, Object> map);
 
     int deleteByUsercodes(List<String> codeStrs);
+
+    int selectIsExistByCode(String usercode);
 }

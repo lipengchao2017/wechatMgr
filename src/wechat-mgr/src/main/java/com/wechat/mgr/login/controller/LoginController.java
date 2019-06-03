@@ -52,7 +52,18 @@ public class LoginController {
             mav.addObject("loginUser",user);
             return mav;
         }else{
-            return null;
+            ModelAndView mav = new ModelAndView("login/login");
+            mav.addObject("error","密码错误，请确认后重试");
+            return mav;
         }
+    }
+
+    /**
+     * 跳转至密码页面
+     * @return
+     */
+    @RequestMapping("/toPwd")
+    public String toPWD(){
+        return "login/changepwd";
     }
 }

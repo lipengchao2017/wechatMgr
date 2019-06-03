@@ -65,4 +65,9 @@ public class RoleServiceImpl implements RoleService {
     public int deleteByRolecodes(List<String> sts) {
         return roleMapper.deleteByRolecodes(sts);
     }
+
+    @Override
+    public int selectIsExistByCode(String rolecode) {
+        return roleMapper.selectIsExistByCode(rolecode);
+    }
 }

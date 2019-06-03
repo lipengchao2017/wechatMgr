@@ -17,6 +17,11 @@
     UPDATETIME
   </sql>
 
+  <select id="selectIsExistByCode" parameterType="String" resultType="Integer">
+    SELECT COUNT(GROUPCODE) FROM WECHAT_BASE_T_GROUP
+    WHERE GROUPCODE = #{groupcode,jdbcType=VARCHAR}
+  </select>
+
   <!-- 无条件分页查询-->
   <select id="selectAllWithPage" parameterType="Map" resultMap="BaseResultMap">
         SELECT GROUPID,GROUPCODE,GROUPNAME,CREATOR,UPDATOR,CREATETIME,UPDATETIME

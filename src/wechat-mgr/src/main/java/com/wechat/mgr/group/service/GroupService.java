@@ -12,4 +12,6 @@ public interface GroupService extends BasicService<Group> {
     List<Role> selectAllWithPage(int i, int limit);
 
     int deleteByGroupcodes(List<String> codeStrs);
+
+    int selectIsExistByCode(String groupcode);
 }

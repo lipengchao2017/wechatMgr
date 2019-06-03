@@ -16,6 +16,11 @@
     ID, ROLECODE, ROLENAME, CREATOR, CREATORID, UPDATOR, UPDATORID, CREATETIME, UPDATETIME
   </sql>
 
+  <select id="selectIsExistByCode" parameterType="String" resultType="Integer">
+        SELECT COUNT(ROLECODE) FROM WECHAT_BASE_T_ROLE
+        WHERE ROLECODE = #{rolecode,jdbcType=VARCHAR}
+  </select>
+
   <!-- 无条件分页查询-->
   <select id="selectAllWithPage" parameterType="Map" resultMap="BaseResultMap">
         SELECT ID,ROLECODE,ROLENAME,CREATOR,UPDATOR,CREATETIME,UPDATETIME

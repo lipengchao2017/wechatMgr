@@ -104,4 +104,20 @@ public class RoleController {
             return "fail";
         }
     }
+
+    /**
+     * 验证重复数据
+     * @param rolecode
+     * @return
+     */
+    @GetMapping("/verrify")
+    @ResponseBody
+    public String verifyRepeat(@RequestParam("rolecode") String rolecode){
+        int count = roleService.selectIsExistByCode(rolecode);
+        if(count > 0){
+            return "yes";
+        }else{
+            return "no";
+        }
+    }
 }

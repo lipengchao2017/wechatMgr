@@ -41,18 +41,34 @@
     $(function(){
         $('#usercode').blur(function(){
             //目前先传递数据库做简单验证
-
-
-
+            verifyCode();
         })
     });
 
+    function verifyCode(){
+        //获取输入框中的值
+        var usercode = $("#usercode").val();
+        $.ajax({
+            //几个参数需要注意一下
+            type: "GET",//方法类型
+            dataType: "text",//预期服务器返回的数据类型
+            url: "./verrify" ,//url
+            data: {"usercode":usercode},
+            success: function (data) {
+                if (data == "yes") {
+                    layer.msg("系统中存在相同编号，请确认后修改");
+                    $("#usercode").val("");
+                }
+            }
+        });
+    }
 
     layui.use(['layer','form'], function(){
         var layer = layui.layer
             ,form = layui.form;
 
         form.on('submit(user)', function(data){
+            verifyCode();
             $.ajax({
                 //几个参数需要注意一下
                 type: "POST",//方法类型

@@ -16,4 +16,6 @@ public interface GroupMapper extends BasicMapper<Group> {
     List<Role> selectAllWithPage(Map<String, Object> map);
 
     int deleteByGroupcodes(List<String> codeStrs);
+
+    int selectIsExistByCode(String groupcode);
 }

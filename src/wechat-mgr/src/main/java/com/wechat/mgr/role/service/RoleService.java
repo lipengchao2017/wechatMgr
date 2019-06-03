@@ -11,4 +11,6 @@ public interface RoleService extends BasicService<Role> {
     int selectAllCount();
 
     int deleteByRolecodes(List<String> sts);
+
+    int selectIsExistByCode(String rolecode);
 }

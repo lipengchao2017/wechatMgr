@@ -14,4 +14,6 @@ public interface UserService extends BasicService<User> {
     List<Role> selectAllWithPage(int i, int limit);
 
     int deleteByUsercodes(List<String> codeStrs);
+
+    int selectIsExistByCode(String usercode);
 }

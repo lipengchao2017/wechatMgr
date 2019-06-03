@@ -37,11 +37,14 @@
 </div>
 <script>
     layui.use(['layer', 'form'], function(){
-        var layer = layui.layer,
-                form = layui.form;
+        var layer = layui.layer;
 
-
-
+        $(function(){
+            var errorStr = '${error}'
+            if(errorStr != ""){
+                layer.msg(errorStr);
+            }
+        })
     });
 </script>
 </body>

@@ -104,4 +104,18 @@ public class GroupController {
         }
     }
 
+    /**
+     * 验证是否重复数据
+     * @return
+     */
+    @GetMapping("/verrify")
+    @ResponseBody
+    public String verifyRepeat(@RequestParam("groupcode") String groupcode){
+        int count = groupService.selectIsExistByCode(groupcode);
+        if(count > 0){
+            return "yes";
+        }else{
+            return "no";
+        }
+    }
 }

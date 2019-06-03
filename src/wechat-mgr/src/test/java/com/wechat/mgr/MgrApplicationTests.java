@@ -17,7 +17,7 @@ public class MgrApplicationTests {
 
 	@Test
 	public void testPassPWD(){
-		String md5 = MD5Util.getMD5("pwd000000");
+		String md5 = MD5Util.getMD5("000000");
 		System.out.println(md5);
 	}
 

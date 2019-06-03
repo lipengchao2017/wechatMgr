@@ -69,4 +69,9 @@ public class UserServiceImpl implements UserService {
     public int deleteByUsercodes(List<String> codeStrs) {
         return userMapper.deleteByUsercodes(codeStrs);
     }
+
+    @Override
+    public int selectIsExistByCode(String usercode) {
+        return userMapper.selectIsExistByCode(usercode);
+    }
 }
