@@ -16,6 +16,10 @@
     ID, ROLECODE, ROLENAME, CREATOR, CREATORID, UPDATOR, UPDATORID, CREATETIME, UPDATETIME
   </sql>
 
+  <select id="selectAllData" resultMap="BaseResultMap">
+    SELECT ROLECODE,ROLENAME FROM WECHAT_BASE_T_ROLE
+  </select>
+
   <select id="selectIsExistByCode" parameterType="String" resultType="Integer">
         SELECT COUNT(ROLECODE) FROM WECHAT_BASE_T_ROLE
         WHERE ROLECODE = #{rolecode,jdbcType=VARCHAR}

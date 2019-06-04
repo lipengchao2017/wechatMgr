@@ -70,4 +70,9 @@ public class RoleServiceImpl implements RoleService {
     public int selectIsExistByCode(String rolecode) {
         return roleMapper.selectIsExistByCode(rolecode);
     }
+
+    @Override
+    public List<Role> selectAllData() {
+        return roleMapper.selectAllData();
+    }
 }

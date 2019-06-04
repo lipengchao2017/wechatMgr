@@ -33,7 +33,6 @@
                     ${Session["user"].username}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
                     <dd><a href="#" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">修改密码</a></dd>
                 </dl>
             </li>
@@ -49,7 +48,7 @@
                     <a class="" href="javascript:;">角色管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="#" data-url="../role/main" data-title="角色维护" data-id="11" class="site-demo-active" data-type="tabAdd">角色维护</a></dd>
-                        <dd><a href="#" data-url="b" data-title="角色与用户" data-id="12" class="site-demo-active" data-type="tabAdd">角色与用户</a></dd>
+                        <dd><a href="#" data-url="../userrole/toMain" data-title="角色与用户" data-id="12" class="site-demo-active" data-type="tabAdd">角色与用户</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

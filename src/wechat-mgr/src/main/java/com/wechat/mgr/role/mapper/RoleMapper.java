@@ -16,4 +16,6 @@ public interface RoleMapper extends BasicMapper<Role> {
     int deleteByRolecodes(List<String> sts);
 
     int selectIsExistByCode(String rolecode);
+
+    List<Role> selectAllData();
 }
