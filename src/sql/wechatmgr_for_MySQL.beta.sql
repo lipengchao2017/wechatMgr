@@ -1,0 +1,132 @@
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- 用户
+-- ----------------------------
+DROP TABLE IF EXISTS `WECHAT_BASE_T_USER`;
+CREATE TABLE `WECHAT_BASE_T_USER` (
+  `USERID` char(32) NOT NULL COMMENT '用户编号',
+  `USERCODE` varchar(255) DEFAULT NULL COMMENT '用户标识',
+  `USERNAME` varchar(255) DEFAULT NULL COMMENT '用户姓名',
+  PRIMARY KEY (`USERID`),
+  INDEX (`USERCODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+-- ----------------------------
+-- 用户扩展
+-- ----------------------------
+DROP TABLE IF EXISTS `WECHAT_BASE_T_USERPRPT`;
+CREATE TABLE `WECHAT_BASE_T_USERPRPT` (
+  `USERID` char(32) DEFAULT NULL COMMENT '用户编号',
+  `PROP` varchar(255) DEFAULT NULL COMMENT '用户属性',
+  `PROPVALUE` varchar(255) DEFAULT NULL COMMENT '属性值',
+  INDEX (`USERID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户属性表';
+
+-- ----------------------------
+-- 密码
+-- ----------------------------
+DROP TABLE IF EXISTS `WECHAT_BASE_T_USERPWD`;
+CREATE TABLE `WECHAT_BASE_T_USERPWD` (
+  `USERID` char(32) NOT NULL COMMENT '用户编号',
+  `USERPWD` char(32) DEFAULT NULL COMMENT '用户密码（加密）',
+  `ISINITPWD` char(1) DEFAULT NULL COMMENT '是否初始密码',
+  `ISEFFECTIVE` char(1) DEFAULT NULL COMMENT '是否有效',
+  `LOCKTYPE` char(1) DEFAULT NULL COMMENT '锁定类型',
+  `ERRORCOUNT` int(11) DEFAULT NULL COMMENT '错误次数',
+  `LOCKTIME` datetime DEFAULT NULL COMMENT '锁定时间',
+  PRIMARY KEY (`USERID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户密码表';
+
+-- ----------------------------
+-- 用户组
+-- ----------------------------
+DROP TABLE IF EXISTS `WECHAT_BASE_T_GROUP`;
+CREATE TABLE `WECHAT_BASE_T_GROUP` (
+  `GROUPID` char(32) NOT NULL COMMENT '用户组编号',
+  `GROUPCODE` varchar(255) DEFAULT NULL COMMENT '用户组标识',
+  `GROUPNAME` varchar(255) DEFAULT NULL COMMENT '用户组名称',
+  `GROUPMEMO` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`GROUPID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组表';
+
+-- ----------------------------
+-- 角色
+-- ----------------------------
+DROP TABLE IF EXISTS `WECHAT_BASE_T_ROLE`;
+CREATE TABLE `WECHAT_BASE_T_ROLE` (
+  `ROLEID` char(32) NOT NULL COMMENT '角色编号',
+  `ROLECODE` varchar(100) DEFAULT NULL COMMENT '角色编号',
+  `ROLENAME` varchar(100) DEFAULT NULL COMMENT '角色名称',
+  `ROLEMEMO` varchar(100) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`ROLEID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
+
+-- ----------------------------
+-- 用户与角色
+-- ----------------------------
+DROP TABLE IF EXISTS `WECHAT_BASE_T_USERROLE`;
+CREATE TABLE `WECHAT_BASE_T_USERROLE` (
+  `USERCODE` char(32) DEFAULT NULL COMMENT '用户编号',
+  `ROLECODE` char(32) DEFAULT NULL COMMENT '角色编号',
+  `FUNCODE` char(32) DEFAULT NULL COMMENT '功能编号',
+  `MEMO` varchar(100) DEFAULT NULL COMMENT '备注',
+  INDEX (`USERCODE`),
+  INDEX (`ROLECODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与角色关系表';
+
+-- ----------------------------
+-- 用户与用户组
+-- ----------------------------
+DROP TABLE IF EXISTS `WECHAT_BASE_T_USERGROUP`;
+CREATE TABLE `WECHAT_BASE_T_USERGROUP` (
+  `USERCODE` char(32) DEFAULT NULL COMMENT '用户编号',
+  `GROUPCODE` char(32) DEFAULT NULL COMMENT '用户组编号',
+  `FUNCODE` char(32) DEFAULT NULL COMMENT '功能编号',
+  `MEMO` varchar(100) DEFAULT NULL COMMENT '备注',
+  INDEX (`USERCODE`),
+  INDEX (`GROUPCODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与用户组关系表';
+
+-- ----------------------------
+-- 功能菜单
+-- ----------------------------
+DROP TABLE IF EXISTS `WECHAT_BASE_T_FUNATION`;
+CREATE TABLE `WECHAT_BASE_T_FUNATION` (
+  `FUNID` char(32) DEFAULT NULL COMMENT '功能编号',
+  `PARENTID` char(32) DEFAULT NULL COMMENT '父功能编号',
+  `FUNCODE` varchar(100) DEFAULT NULL COMMENT '功能名称',
+  `PATH` varchar(100) DEFAULT NULL COMMENT '执行路径',
+  `FUNTYPE` char(1) DEFAULT NULL COMMENT '类型 M 菜单 F 方法 B 界面控件',
+  `MEMO` varchar(100) DEFAULT NULL COMMENT '备注',
+  INDEX (`FUNID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与用户组关系表';
+
+-- ----------------------------
+-- 日志
+-- ----------------------------
+DROP TABLE IF EXISTS `WECHAT_BASE_T_USERLOG`;
+CREATE TABLE `WECHAT_BASE_T_USERLOG` (
+  `ID` bigint AUTO_INCREMENT COMMENT '编号',
+  `IP` varchar(100) DEFAULT NULL COMMENT '操作者IP',
+  `TIME` datetime DEFAULT NULL COMMENT '操作时间',
+  `TYPE` varchar(50) DEFAULT NULL COMMENT '操作类型',
+  `LEVEL` int(11) DEFAULT NULL COMMENT '操作等级',
+  `USERCODE` char(32) NOT NULL COMMENT '操作者用户编号',
+  `OPINFO` varchar(4000) DEFAULT NULL COMMENT '操作信息',
+  `ISSUCCESS` int(11) DEFAULT NULL COMMENT '操作是否成功',
+  `OPNAME` varchar(255) DEFAULT NULL COMMENT '操作名称',
+  PRIMARY KEY (`ID`),
+  INDEX (`USERCODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+INSERT INTO WECHAT_BASE_T_USER VALUES ('1796261e37974d4f9a51ea6b63e6872b','admin','管理员');
+INSERT INTO WECHAT_BASE_T_USERPRPT VALUES('1796261e37974d4f9a51ea6b63e6872b','phone','18936598452');
+INSERT INTO WECHAT_BASE_T_USERPRPT VALUES('1796261e37974d4f9a51ea6b63e6872b','hobby','bike');
+
+SELECT * FROM WECHAT_BASE_T_USER U WHERE U.USERCODE = 'admin';
+SELECT * FROM WECHAT_BASE_T_USERPRPT P WHERE P.USERID = '1796261e37974d4f9a51ea6b63e6872b';
