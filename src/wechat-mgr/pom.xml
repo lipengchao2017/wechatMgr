@@ -70,6 +70,13 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.58</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring-boot-web-starter</artifactId>
+			<version>1.4.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
