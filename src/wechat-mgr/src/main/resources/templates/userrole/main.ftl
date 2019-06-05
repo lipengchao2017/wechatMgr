@@ -13,6 +13,7 @@
 <body>
 <div class="layui-container">
     <div class="layui-row">
+        //待写控制高度
         <div class="layui-col-md3">
             <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
                 <legend>角色列表</legend>
@@ -46,6 +47,8 @@
 
     })
 
+    //待写点击跳转加载事件
+
     layui.use(['laydate', 'laypage', 'layer', 'table','element','tree'], function(){
         var laydate = layui.laydate //日期
             ,laypage = layui.laypage //分页
@@ -73,6 +76,8 @@
                 ,{field: 'username', title: '用户名称', sort: true}
             ]]
         });
+
+        //待写添加和删除关系
 
         table.on('toolbar(userrole)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id)
