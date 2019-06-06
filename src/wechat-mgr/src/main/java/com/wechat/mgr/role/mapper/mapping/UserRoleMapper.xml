@@ -5,6 +5,16 @@
     <result column="USERCODE" jdbcType="VARCHAR" property="usercode" />
     <result column="ROLECODE" jdbcType="VARCHAR" property="rolecode" />
   </resultMap>
+
+  <resultMap id="UserResultMap" type="com.wechat.mgr.user.model.User">
+    <result column="USERCODE" jdbcType="VARCHAR" property="usercode"/>
+    <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
+  </resultMap>
+
+  <select id="selectUserByCode" parameterType="String" resultMap="UserResultMap">
+
+  </select>
+
   <insert id="insert" parameterType="com.wechat.mgr.role.model.UserRole">
     insert into WECHAT_BASE_T_USERROLE (USERCODE, ROLECODE)
     values (#{usercode,jdbcType=VARCHAR}, #{rolecode,jdbcType=VARCHAR})

@@ -14,15 +14,13 @@
         <div class="layui-logo">微信SAAS平台</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">其它系统</a>
                 <dl class="layui-nav-child">
                     <dd><a href="">邮件管理</a></dd>
                     <dd><a href="">消息管理</a></dd>
                     <dd><a href="">授权管理</a></dd>
+                    <dd><a href="">微信相关</a></dd>
                 </dl>
             </li>
         </ul>
@@ -56,11 +54,9 @@
                     <dl class="layui-nav-child">
                         <dd><a href="#" data-url="../user/main" data-title="用户维护" data-id="21" class="site-demo-active" data-type="tabAdd">用户管理</a></dd>
                         <dd><a href="#" data-url="../group/main" data-title="用户组维护" data-id="22" class="site-demo-active" data-type="tabAdd">用户组管理</a></dd>
-                        <dd><a href="">用户与用户组</a></dd>
+                        <dd><a href="#" data-url="../usergroup/toMain" data-title="用户与用户组" data-id="23" class="site-demo-active" data-type="tabAdd">用户与用户组</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
             </ul>
         </div>
     </div>
@@ -110,7 +106,6 @@
                 })
             },
             offset: function(othis){
-                alert("111");
                 updatePWD();
             }
         }

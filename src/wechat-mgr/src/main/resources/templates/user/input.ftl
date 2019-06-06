@@ -96,7 +96,6 @@
             window.parent.location.reload();
             parent.layer.close(index);
         }
-
     })
 </script>
 </body>

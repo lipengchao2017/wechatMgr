@@ -12,28 +12,28 @@
 </head>
 <body>
 <div class="layui-container">
-    <div class="layui-row">
-        //待写控制高度
-        <div class="layui-col-md3">
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                <legend>角色列表</legend>
-            </fieldset>
-            <div id="roletree" ></div>
-        </div>
-        <div class="layui-col-md9">
-            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                <legend>角色与人员</legend>
-            </fieldset>
-            <table class="layui-hide" id="userrole" lay-filter="userrole"></table>
-        </div>
+    <div class="layui-col-md3">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>角色列表</legend>
+        </fieldset>
+        <div id="roletree"></div>
+    </div>
+    <div class="layui-col-md9">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>角色与人员</legend>
+        </fieldset>
+        <table class="layui-hide" id="userrole" lay-filter="userrole"></table>
     </div>
 
 <script src="/layui/layui.js"></script>
 <script>
 
     var dataArr;
+    var tabledatas = [];
+    var rolecode = '';
 
     $(function () {
+
         $.ajax({
             //几个参数需要注意一下
             type: "GET",//方法类型
@@ -41,10 +41,8 @@
             url: "./getTree" ,//url
             success: function (data) {
                 dataArr = data;
-                console.log(dataArr);
             }
         });
-
     })
 
     //待写点击跳转加载事件
@@ -60,12 +58,27 @@
             tree.render({
                 elem: '#roletree'  //绑定元素
                 ,data: dataArr
-        });
+                ,click: function(obj){
+                    //置换table表里面的数据 并且刷新
+                    rolecode = obj.data.id;
+                    var id = obj.data.id;
+                    $.ajax({
+                        //几个参数需要注意一下
+                        type: "GET",//方法类型
+                        dataType: "json",//预期服务器返回的数据类型
+                        url: "./selectUserByRole" ,//url
+                        data: {"rolecode":id},
+                        success: function (data) {
+
+                        }
+                    });
+                }
+            });
 
         table.render({
             elem: '#userrole'
             /*,height: 'full-200'*/
-            ,url: '' //数据接口
+            ,data : tabledatas
             ,title: '用户角色关系表'
             ,page: true //开启分页
             ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
@@ -77,24 +90,58 @@
             ]]
         });
 
-        //待写添加和删除关系
-
         table.on('toolbar(userrole)', function(obj){
             var checkStatus = table.checkStatus(obj.config.id)
                 ,data = checkStatus.data; //获取选中的数据
             switch(obj.event){
                 case 'add':
-
+                    if(rolecode == ''){
+                        layer.msg("请在左侧选择需要构建关系的角色");
+                    }else{
+                        addRel(rolecode);
+                    }
                     break;
                 case 'update':
 
                     break;
                 case 'delete':
 
+
+
                     break;
             };
         });
 
+        function addRel(rolecode){
+            layer.open({
+                type: 2 //此处以iframe举例
+                ,title: '角色用户关系'
+                ,id : "addRel"
+                ,area: ['390px', '260px']
+                ,shade: 0
+                ,offset: 'auto'
+                ,content: './toShowInput'
+                ,resize: false
+                ,btn: ['提交', '重置','关闭']
+                ,yes: function(index){
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#userroleSubmit').click();
+                }
+                ,btn2: function(index){
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#userroleReset').click();
+                    return false;
+                }
+                ,btn3: function(){
+                    layer.closeAll();
+                }
+                ,success: function(layero, index){
+                    var body = layer.getChildFrame('body', index);
+                    body.find('#rolecode').val(rolecode);
+                    body.find('#username').val('');
+                }
+            });
+        }
 
     });
 </script>
