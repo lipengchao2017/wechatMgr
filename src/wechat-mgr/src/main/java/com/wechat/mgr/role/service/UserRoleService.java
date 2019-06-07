@@ -12,4 +12,6 @@ public interface UserRoleService {
     int insertSelective(UserRole record);
 
     List<User> selectUserByCode(String rolecode);
+
+    int selectCountByCode(String rolecode);
 }

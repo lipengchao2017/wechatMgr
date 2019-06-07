@@ -17,7 +17,8 @@
         <label class="layui-form-label">用户名称</label>
         <div class="layui-input-block">
             <input type="text" id="rolecode" name="rolecode" hidden="hidden">
-            <input type="text" id="username" name="username" lay-verify="required" placeholder="请输入并选择对应的用户" autocomplete="off" class="layui-input">
+            <input type="text" id="usercode" name="usercode" lay-verify="required" placeholder="暂时为输入人员编号进行" autocomplete="off" class="layui-input">
+            <#--<input type="text" id="username" name="username" lay-verify="required" placeholder="请输入并选择对应的用户" autocomplete="off" class="layui-input">-->
         </div>
     </div>
 
@@ -45,14 +46,28 @@
             $.ajax({
                 //几个参数需要注意一下
                 type: "POST",//方法类型
-                dataType: "json",//预期服务器返回的数据类型
+                dataType: "text",//预期服务器返回的数据类型
                 url: "./saveRel" ,//url
                 data: $('#saveForm').serialize(),
                 success: function (data) {
-
+                    if(data=="success"){
+                        layer.msg('添加成功',{time: 500},function(){
+                            refresh();
+                        });
+                    }else{
+                        layer.msg('添加失败,请重试！',{time: 500},function(){
+                            refresh();
+                        });
+                    }
                 }
             });
         });
+
+        function refresh(){
+            var index=parent.layer.getFrameIndex(window.name);
+            window.parent.location.reload();
+            parent.layer.close(index);
+        }
 
     })
 </script>

@@ -69,7 +69,8 @@
                         url: "./selectUserByRole" ,//url
                         data: {"rolecode":id},
                         success: function (data) {
-
+                            tabledatas = data;
+                            refreshReload();
                         }
                     });
                 }
@@ -81,6 +82,7 @@
             ,data : tabledatas
             ,title: '用户角色关系表'
             ,page: true //开启分页
+            ,id : 'userRole'
             ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
             ,cellMinWidth: 80
             ,cols: [[ //表头
@@ -111,6 +113,14 @@
                     break;
             };
         });
+
+        function refreshReload(){
+            table.reload('userRole', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        }
 
         function addRel(rolecode){
             layer.open({

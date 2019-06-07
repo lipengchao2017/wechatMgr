@@ -30,4 +30,9 @@ public class UserRoleServiceImpl implements UserRoleService {
     public List<User> selectUserByCode(String rolecode) {
         return userRoleMapper.selectUserByCode(rolecode);
     }
+
+    @Override
+    public int selectCountByCode(String rolecode) {
+        return userRoleMapper.selectCountByCode(rolecode);
+    }
 }

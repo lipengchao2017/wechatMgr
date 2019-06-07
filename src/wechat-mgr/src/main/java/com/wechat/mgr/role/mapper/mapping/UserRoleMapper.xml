@@ -11,8 +11,14 @@
     <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
   </resultMap>
 
-  <select id="selectUserByCode" parameterType="String" resultMap="UserResultMap">
+  <select id="selectCountByCode" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) FROM WECHAT_BASE_T_USER WHERE USERCODE IN
+    (SELECT USERCODE FROM WECHAT_BASE_T_USERROLE WHERE ROLECODE = #{rolecode,jdbcType=VARCHAR})
+  </select>
 
+  <select id="selectUserByCode" parameterType="String" resultMap="UserResultMap">
+        SELECT USERCODE,USERNAME FROM WECHAT_BASE_T_USER WHERE USERCODE IN
+    (SELECT USERCODE FROM WECHAT_BASE_T_USERROLE WHERE ROLECODE = #{rolecode,jdbcType=VARCHAR})
   </select>
 
   <insert id="insert" parameterType="com.wechat.mgr.role.model.UserRole">

@@ -13,4 +13,6 @@ public interface UserRoleMapper {
     int insertSelective(UserRole record);
 
     List<User> selectUserByCode(String rolecode);
+
+    int selectCountByCode(String rolecode);
 }

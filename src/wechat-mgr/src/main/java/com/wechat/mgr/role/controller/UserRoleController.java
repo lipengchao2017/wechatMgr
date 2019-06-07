@@ -1,8 +1,7 @@
 package com.wechat.mgr.role.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.wechat.mgr.role.model.Role;
+import com.wechat.mgr.role.model.UserRole;
 import com.wechat.mgr.role.service.RoleService;
 import com.wechat.mgr.role.service.UserRoleService;
 import com.wechat.mgr.user.model.User;
@@ -67,21 +66,31 @@ public class UserRoleController {
 
     @GetMapping("/selectUserByRole")
     @ResponseBody
-    public List<User> selectUserByRole(@RequestParam("rolecode") String rolecode){
+    public Map<String,Object> selectUserByRole(@RequestParam("rolecode") String rolecode){
         //通过usercode获取
         List<User> users = userRoleService.selectUserByCode(rolecode);
-        return null;
+        int count = userRoleService.selectCountByCode(rolecode);
+        Map<String,Object> returnMap = new HashMap<>();
+        returnMap.put("code",0);
+        returnMap.put("msg","");
+        returnMap.put("count",count);
+        returnMap.put("data",users);
+        return returnMap;
     }
 
     @RequestMapping("/saveRel")
     @ResponseBody
-    public String saveRel(@RequestParam("rolecode") String rolecode,@RequestParam("username") String username){
-
-        System.out.println(rolecode);
-        System.out.println(username);
-
-
-        return null;
+    public String saveRel(@RequestParam("rolecode") String rolecode,@RequestParam("usercode") String usercode){
+        //插入数据以构建关系
+        UserRole ur = new UserRole();
+        ur.setRolecode(rolecode);
+        ur.setUsercode(usercode);
+        int i = userRoleService.insertSelective(ur);
+        if(i > 0){
+           return "success";
+        }else{
+            return "fail";
+        }
     }
 
 }
