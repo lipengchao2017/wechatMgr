@@ -18,4 +18,6 @@ public interface GroupMapper extends BasicMapper<Group> {
     int deleteByGroupcodes(List<String> codeStrs);
 
     int selectIsExistByCode(String groupcode);
+
+    List<Group> selectAllData();
 }

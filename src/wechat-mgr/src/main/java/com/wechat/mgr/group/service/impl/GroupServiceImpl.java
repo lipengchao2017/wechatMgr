@@ -70,4 +70,9 @@ public class GroupServiceImpl implements GroupService {
     public int selectIsExistByCode(String groupcode) {
         return groupMapper.selectIsExistByCode(groupcode);
     }
+
+    @Override
+    public List<Group> selectAllData() {
+        return groupMapper.selectAllData();
+    }
 }

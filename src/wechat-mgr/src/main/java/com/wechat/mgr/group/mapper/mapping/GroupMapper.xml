@@ -17,6 +17,10 @@
     UPDATETIME
   </sql>
 
+  <select id="selectAllData" resultMap="BaseResultMap">
+        SELECT GROUPCODE,GROUPNAME FROM WECHAT_BASE_T_GROUP
+  </select>
+
   <select id="selectIsExistByCode" parameterType="String" resultType="Integer">
     SELECT COUNT(GROUPCODE) FROM WECHAT_BASE_T_GROUP
     WHERE GROUPCODE = #{groupcode,jdbcType=VARCHAR}

@@ -5,6 +5,22 @@
     <result column="USERCODE" jdbcType="VARCHAR" property="usercode" />
     <result column="GROUPCODE" jdbcType="VARCHAR" property="groupcode" />
   </resultMap>
+
+  <resultMap id="UserResultMap" type="com.wechat.mgr.user.model.User">
+    <result column="USERCODE" jdbcType="VARCHAR" property="usercode"/>
+    <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
+  </resultMap>
+
+  <select id="selectCountByCode" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) FROM WECHAT_BASE_T_USER WHERE USERCODE IN
+    (SELECT USERCODE FROM WECHAT_BASE_T_USERGROUP WHERE GROUPCODE = #{groupcode,jdbcType=VARCHAR})
+  </select>
+
+  <select id="selectUserByCode" parameterType="String" resultMap="UserResultMap">
+        SELECT USERCODE,USERNAME FROM WECHAT_BASE_T_USER WHERE USERCODE IN
+    (SELECT USERCODE FROM WECHAT_BASE_T_USERGROUP WHERE GROUPCODE = #{groupcode,jdbcType=VARCHAR})
+  </select>
+
   <insert id="insert" parameterType="com.wechat.mgr.group.model.UserGroup">
     insert into WECHAT_BASE_T_USERGROUP (USERCODE, GROUPCODE)
     values (#{usercode,jdbcType=VARCHAR}, #{groupcode,jdbcType=VARCHAR})

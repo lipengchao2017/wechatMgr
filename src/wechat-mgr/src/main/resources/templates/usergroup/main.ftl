@@ -123,7 +123,7 @@
         function addRel(groupcode){
             layer.open({
                 type: 2 //此处以iframe举例
-                ,title: '角色用户关系'
+                ,title: '用户组用户关系'
                 ,id : "addRel"
                 ,area: ['390px', '260px']
                 ,shade: 0
