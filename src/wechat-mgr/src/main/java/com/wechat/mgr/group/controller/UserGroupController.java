@@ -1,9 +1,11 @@
 package com.wechat.mgr.group.controller;
 
 import com.wechat.mgr.group.model.Group;
+import com.wechat.mgr.group.model.UserGroup;
 import com.wechat.mgr.group.service.GroupService;
 import com.wechat.mgr.group.service.UserGroupService;
 import com.wechat.mgr.role.model.Role;
+import com.wechat.mgr.role.model.UserRole;
 import com.wechat.mgr.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,6 +66,21 @@ public class UserGroupController {
             reGroups.add(map);
         }
         return reGroups;
+    }
+
+    @RequestMapping("/saveRel")
+    @ResponseBody
+    public String saveRel(@RequestParam("groupcode") String groupcode,@RequestParam("usercode") String usercode){
+        //插入数据以构建关系
+        UserGroup ug = new UserGroup();
+        ug.setGroupcode(groupcode);
+        ug.setUsercode(usercode);
+        int i = userGroupService.insertSelective(ug);
+        if(i > 0){
+            return "success";
+        }else{
+            return "fail";
+        }
     }
 
 

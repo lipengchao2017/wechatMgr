@@ -45,14 +45,28 @@
             $.ajax({
                 //几个参数需要注意一下
                 type: "POST",//方法类型
-                dataType: "json",//预期服务器返回的数据类型
-                url: "./save" ,//url
+                dataType: "test",//预期服务器返回的数据类型
+                url: "./saveRel" ,//url
                 data: $('#saveForm').serialize(),
                 success: function (data) {
-
+                    if(data=="success"){
+                        layer.msg('添加成功',{time: 500},function(){
+                            refresh();
+                        });
+                    }else{
+                        layer.msg('添加失败,请重试！',{time: 500},function(){
+                            refresh();
+                        });
+                    }
                 }
             });
         });
+
+        function refresh(){
+            var index=parent.layer.getFrameIndex(window.name);
+            window.parent.location.reload();
+            parent.layer.close(index);
+        }
 
     })
 </script>

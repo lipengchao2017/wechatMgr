@@ -145,6 +145,7 @@
                 }
                 ,success: function(layero, index){
                     var body = layer.getChildFrame('body', index);
+                    console.log(groupcode);
                     body.find('#groupcode').val(groupcode);
                     body.find('#username').val('');
                 }
